@@ -2,7 +2,7 @@
 package main
 
 import (
-	"fmt"
+	json "encoding/json"
 	"net/http"
 	"time"
 
@@ -13,30 +13,30 @@ import (
 
 var menuItems = [3]menuItem{
 	{
-		id:            uuid.New(),
-		displayName:   "Mac 'n Cheese",
-		amountInStock: 6,
-		imageURL:      "https://en.wikipedia.org/wiki/File:Original_Mac_n_Cheese_.jpg",
+		ID:            uuid.New(),
+		DisplayName:   "Mac 'n Cheese",
+		AmountInStock: 6,
+		ImageURL:      "https://en.wikipedia.org/wiki/File:Original_Mac_n_Cheese_.jpg",
 	},
 	{
-		id:            uuid.New(),
-		displayName:   "Fried Chicken Drumstick",
-		amountInStock: 5,
-		imageURL:      "https://as1.ftcdn.net/v2/jpg/05/48/91/86/1000_F_548918636_WSoVnzQaHxvHyEqgYBsB27s1cRM8T64c.webp",
+		ID:            uuid.New(),
+		DisplayName:   "Fried Chicken Drumstick",
+		AmountInStock: 5,
+		ImageURL:      "https://as1.ftcdn.net/v2/jpg/05/48/91/86/1000_F_548918636_WSoVnzQaHxvHyEqgYBsB27s1cRM8T64c.webp",
 	},
 	{
-		id:            uuid.New(),
-		displayName:   "Sweet Tea",
-		amountInStock: 8,
-		imageURL:      "https://as1.ftcdn.net/v2/jpg/02/71/57/10/1000_F_271571019_jAbFG0INaOJ1nonSdf5005EYYIaaxt3W.jpg",
+		ID:            uuid.New(),
+		DisplayName:   "Sweet Tea",
+		AmountInStock: 8,
+		ImageURL:      "https://as1.ftcdn.net/v2/jpg/02/71/57/10/1000_F_271571019_jAbFG0INaOJ1nonSdf5005EYYIaaxt3W.jpg",
 	},
 }
 
 type menuItem struct {
-	displayName   string
-	imageURL      string
-	id            uuid.UUID
-	amountInStock int
+	DisplayName   string    `json:"displayName"`
+	ImageURL      string    `json:"imageURL"`
+	ID            uuid.UUID `json:"_id"`
+	AmountInStock int       `json:"amountInStock"`
 }
 
 func init() {
@@ -49,9 +49,9 @@ func main() {
 		ReadTimeout: time.Minute,
 	}
 
-	log.Info(menuItems[0].displayName)
-	log.Info(menuItems[0].id)
-	log.Info(menuItems[0].amountInStock)
+	log.Info(menuItems[0].DisplayName)
+	log.Info(menuItems[0].ID)
+	log.Info(menuItems[0].AmountInStock)
 
 	err := server.ListenAndServe()
 	if err != nil {
@@ -60,11 +60,12 @@ func main() {
 }
 
 func handleMenu(w http.ResponseWriter, _ *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	log.Info("Received GET /menu")
 
-	_, err := fmt.Fprintf(w, "%+v", menuItems)
+	err := json.NewEncoder(w).Encode(menuItems)
 	if err != nil {
-		log.Fatal(err)
+		log.Error(err)
 	}
 }
