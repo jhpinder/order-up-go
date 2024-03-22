@@ -46,3 +46,13 @@ setup:
 	go install golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow@latest
 	go install honnef.co/go/tools/cmd/staticcheck@latest
 	go install mvdan.cc/gofumpt@latest
+
+images:
+	podman build -t localhost:5000/server -f containers/server .
+
+push:
+	podman push localhost:5000/server
+
+builder:
+	podman build -t localhost:5000/builder -f containers/builder .
+	podman push localhost:5000/builder
