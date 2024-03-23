@@ -3,19 +3,19 @@
     {
       "displayName": "mac n cheese",
       "amountInStock": 6,
-      "_id": "1001",
+      "uuid": "ab5b4a9f-9ad0-41c7-9b20-067ca828d909",
       "imageUrl": "https://en.wikipedia.org/wiki/File:Original_Mac_n_Cheese_.jpg"
     },
     {
       "displayName": "Fried Chicken Drumstick",
       "amountInStock": 5,
-      "_id": "1002",
+      "uuid": "2b3a097b-8b2f-4476-9b75-42679f3f27e0",
       "imageUrl": "https://www.instacart.com/assets/domains/product-image/file/large_d7b47b13-c434-4dd3-bcfa-218b034e3d1e.JPG"
     },
     {
       "displayName": "Sweet Tea",
       "amountInStock": 8,
-      "_id": "1003",
+      "uuid": "df384223-ba4f-48c9-85bb-7812bd8f18fe",
       "imageUrl": "httpshttps://as1.ftcdn.net/v2/jpg/02/71/57/10/1000_F_271571019_jAbFG0INaOJ1nonSdf5005EYYIaaxt3W.jpg"
     }
   ]
