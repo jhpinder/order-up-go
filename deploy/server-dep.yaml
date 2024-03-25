@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: order-dep
+  name: order-up
   namespace: order-up
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: order-dep
+      app: order-up
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       labels:
-        app: order-dep
+        app: order-up
     spec:
       containers:
       - image: localhost:5000/server
